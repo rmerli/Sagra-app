@@ -1,0 +1,25 @@
+{
+  "name": "Sagre",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --host",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@primevue/nuxt-module": "^4.2.4",
+    "@primevue/themes": "^4.2.4",
+    "material-icons": "^1.13.12",
+    "nuxt": "^3.14.1592",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.2.4",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.16"
+  }
+}
