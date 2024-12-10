@@ -788,6 +788,18 @@ video {
   font-weight: 300;
 }
 
+.font-thin {
+  font-weight: 100;
+}
+
+.\!font-thin {
+  font-weight: 100 !important;
+}
+
+.\!font-bold {
+  font-weight: 700 !important;
+}
+
 .\!text-gray-50 {
   --tw-text-opacity: 1 !important;
   color: rgb(249 250 251 / var(--tw-text-opacity, 1)) !important;

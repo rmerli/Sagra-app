@@ -7,8 +7,8 @@ class MenuService {
         return {
           id: menu,
           name: 'Menu' + menu,
-          startDate: new Date(),
-          endDate: new Date(),
+          startDate: new Date("2024-12-25"),
+          endDate: new Date("2024-12-28"),
           categories: [
             {
               id: "category1",
@@ -65,8 +65,8 @@ class MenuService {
         return {
           id: menu,
           name: 'Menu' + menu,
-          startDate: new Date(),
-          endDate: new Date(),
+          startDate: new Date("2024-12-29"),
+          endDate: new Date("2024-12-31"),
           categories: [
             {
               id: "category1",
