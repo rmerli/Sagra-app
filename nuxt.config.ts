@@ -19,10 +19,7 @@ export default defineNuxtConfig({
     '@primevue/nuxt-module'
   ],
   primevue: {
-    options: {
-      theme: {
-        preset: SagreTheme,
-      }
-    }
+    autoImport: true,
+    importTheme: { from: '@/sagre.ts' },
   }
 })

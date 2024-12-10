@@ -1,16 +1,37 @@
 <script setup lang="ts">
-import type { Category } from '~/types/types';
+import type { Category, Product } from '~/types/types';
 import type { PropType } from 'vue';
-import AdminProductdListItem from './AdminProductdListItem.vue';
+import ProductService from '~/services/ProductService';
 
-defineProps({
+const props = defineProps({
 	category: {
 		type: Object as PropType<Category>,
 		required: true,
 	},
 })
 
+var catProducts = ref(props.category.products)
+
 const newProductOverlayOpen = ref(false);
+const showQuickAdd = ref(false);
+const products = ref(ProductService.getProductsByCategory(props.category.id).filter(item => !props.category.products.some(el => el.id === item.id)));
+const selectedProduct = ref();
+
+function addProduct(product: Product) {
+	catProducts.value.push(product);
+	products.value.splice(products.value.findIndex(item => item.id == product.id), 1)
+	selectedProduct.value = null
+}
+
+function clearAddProductSelect() {
+	selectedProduct.value = null
+	showQuickAdd.value = false;
+}
+
+function removeProduct(product: Product) {
+	catProducts.value.splice(catProducts.value.findIndex(item => item.id == product.id), 1)
+	products.value.push(product);
+}
 
 </script>
 
@@ -35,27 +56,51 @@ const newProductOverlayOpen = ref(false);
 				</div>
 			</div>
 			<div class="card">
-				<DataView :value="category.products" data-key="id">
+				<DataView :value="catProducts" data-key="id" sort-field="name" :sort-order=1>
 					<template #list="slotProps">
 						<div v-for="(item, index) in slotProps.items" :key="index">
-							<AdminProductdListItem :product="item" />
+							<AdminProductListItem :product="item" @removeProduct="(p) => removeProduct(p)" />
 						</div>
 					</template>
 				</DataView>
 			</div>
-			<div class="flex items-center bg-gray-50 hover:bg-blue-200 text-blue-700 h-20 p-5 rounded-b-lg gap-3 justify-center cursor-pointer"
-				@click="newProductOverlayOpen = true">
+
+			<div v-show="showQuickAdd == false"
+				class="flex items-center bg-gray-50 hover:bg-blue-200 text-blue-700 h-20 p-5 rounded-b-lg gap-3 justify-center cursor-pointer"
+				@click="showQuickAdd = true">
 				<span class="pi pi-plus"></span>
 				Add
+			</div>
+			<div v-show="showQuickAdd == true" class="flex items-center bg-gray-50 text-blue-700 h-20 p-5 rounded-b-lg gap-3
+				justify-center">
+				<Select v-model="selectedProduct" :options="products" overlay-class="max-w-64" :show-clear=true filter
+					:filter-fields="['name']" optionLabel="name" placeholder="Select a Product" class="w-full md:w-64 ">
+					<template #value="slotProps">
+						<div v-if="slotProps.value" class="flex items-center">
+							<div>{{ slotProps.value.name }}</div>
+						</div>
+						<span v-else>
+							{{ slotProps.placeholder }}
+						</span>
+					</template>
+					<template #option="slotProps">
+						<div class="flex items-center">
+							<div>{{ slotProps.option.name }}</div>
+						</div>
+					</template>
+				</Select>
+				<Button icon="pi pi-trash" outlined @click="clearAddProductSelect()" />
+				<Button icon="pi pi-check" :disabled="selectedProduct == null" @click="addProduct(selectedProduct)" />
 			</div>
 		</div>
 	</div>
 
-	<Drawer v-model:visible="newProductOverlayOpen" header="My love" position="right"
+	<Drawer v-model:visible="newProductOverlayOpen" header="Add a product" position="right"
 		class="!w-full md:!w-80 lg:!w-[40rem]">
-		<h1>
-			New cucciolina
-		</h1>
+
+		<div v-for="(product) in products" :key=product.id>
+			{{ product.name }}
+		</div>
 
 	</Drawer>
 </template>

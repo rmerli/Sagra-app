@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Category } from '~/types/types';
+import type { Category, Product } from '~/types/types';
 import type { PropType } from 'vue';
 
 defineProps({
@@ -14,7 +14,7 @@ defineProps({
 
 <template>
 	<div class="flex flex-col gap-6">
-		<AdminCategoryListItem v-for="category in categories" :category=category key=category.id />
+		<AdminCategoryListItem v-for="category in categories" :category=category />
 	</div>
 </template>
 

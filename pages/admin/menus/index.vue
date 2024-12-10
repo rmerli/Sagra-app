@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MenuService from '~/services/MenuService';
 import type { Menu } from '~/types/types';
 
 definePageMeta({
@@ -6,48 +7,7 @@ definePageMeta({
 	titleTemplate: "Sagre"
 })
 
-const items: Menu[] = [
-	{
-		id: "1",
-		name: 'Menu1',
-		startDate: new Date(),
-		endDate: new Date(),
-		categories: [
-			{
-				id: "category1",
-				name: "category1",
-				sort: 1,
-				products: [
-					{
-						id: "product-1",
-						name: "norcina",
-						variants: [],
-					}
-				]
-			}
-		]
-	},
-	{
-		id: "2",
-		name: 'Menu2',
-		startDate: new Date(),
-		endDate: new Date(),
-		categories: [
-			{
-				id: "category1",
-				name: "category1",
-				sort: 1,
-				products: [
-					{
-						id: "product-1",
-						name: "norcina",
-						variants: [],
-					}
-				]
-			}
-		]
-	},
-]
+const items: Menu[] = MenuService.getAllMenus()
 
 </script>
 

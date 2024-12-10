@@ -16,9 +16,13 @@ const overlayOpen = ref(false);
 
 <template>
 	<div>
-		<div class="cursor-pointer " @click="overlayOpen = true">
-			<div class="flex items-center bg-gray-50 hover:bg-blue-200 text-gray-950 h-20 p-5 border-b">
+		<div class="cursor-pointer flex items-center bg-gray-50 hover:bg-blue-200 text-gray-950 h-20 p-5 border-b"
+			@click="overlayOpen = true">
+			<div class="flex-auto flex items-center ">
 				{{ product.name }}
+			</div>
+			<div class="flex-initial">
+				<Button icon="pi pi-trash" :outlined="true" @click.stop="$emit('removeProduct', product)" />
 			</div>
 		</div>
 	</div>

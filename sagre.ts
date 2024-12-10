@@ -1,7 +1,7 @@
 import { definePreset } from "@primevue/themes";
 import Aura from '@primevue/themes/aura';
 
-export default definePreset(Aura, {
+const preset = definePreset(Aura, {
     primitive: {
         borderRadius: {
             none: "0",
@@ -561,6 +561,7 @@ export default definePreset(Aura, {
                     background: "rgba(0,0,0,0.6)",
                     color: "{surface.200}"
                 },
+
                 formField: {
                     background: "{surface.950}",
                     disabledBackground: "{surface.700}",
@@ -658,3 +659,12 @@ export default definePreset(Aura, {
         }
     }
 });
+
+
+export default {
+    preset: preset,
+    options: {
+        darkModeSelector: '.p-dark',
+        order: 'tailwind-base, primevue, tailwind-utilities'
+    }
+};
